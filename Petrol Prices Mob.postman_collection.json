@@ -1,0 +1,71 @@
+{
+	"info": {
+		"_postman_id": "79ba28d9-49b9-42ff-841d-f5ed37d3be88",
+		"name": "Petrol Prices Mob",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Submission Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<GovTalkMessage xmlns=\"http://www.govtalk.gov.uk/CM/envelope\">\r\n\t<EnvelopeVersion>2.0</EnvelopeVersion>\r\n\t<Header>\r\n\t\t<MessageDetails>\r\n\t\t\t<Class>PBL_MCIT_Petrol_PricesMob</Class>\r\n\t\t\t<Qualifier>request</Qualifier>\r\n\t\t\t<Function>submit</Function>\r\n\t\t\t<CorrelationID/>\r\n\t\t</MessageDetails>\r\n\t\t<SenderDetails>\r\n\t\t\t<IDAuthentication>\r\n\t\t\t\t<SenderID>petrol</SenderID>\r\n\t\t\t\t<Authentication>\r\n\t\t\t\t\t<Method>hash</Method>\r\n\t\t\t\t\t<Value>AbcvpSQ7jG55XOYBt8ngf0zXMMQ5qXT0/LjniIcHJwU=</Value>\r\n\t\t\t\t</Authentication>\r\n\t\t\t</IDAuthentication>\r\n\t\t</SenderDetails>\r\n\t</Header>\r\n\t<Body>\r\n\t\t<Message xmlns=\"http://gateway.gov/schema/common/v1\">\r\n\t\t\t<Header>\r\n\t\t\t\t<Vendor>Ariadni Team</Vendor>\r\n\t\t\t</Header>\r\n\t\t\t<Body>\r\n\t\t\t\t<!-- Transaction Body XML Start -->\r\n\t\t\t\t<PetroleumPriceRequestMob xmlns=\"http://gateway.gov/schema/mcit/v1\" xmlns:com=\"http://gateway.gov/schema/common/v1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n\t\t\t\t\t<PetroleumType>1</PetroleumType>\r\n\t\t\t\t</PetroleumPriceRequestMob>\r\n\t\t\t\t<!-- Transaction Body XML End -->\r\n\t\t\t</Body>\r\n\t\t</Message>\r\n\t</Body>\r\n</GovTalkMessage>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://aztest.cyprus.gov.cy/gg/submission",
+					"protocol": "https",
+					"host": [
+						"aztest",
+						"cyprus",
+						"gov",
+						"cy"
+					],
+					"path": [
+						"gg",
+						"submission"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Poll Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<GovTalkMessage xmlns=\"http://www.govtalk.gov.uk/CM/envelope\">\r\n\t<EnvelopeVersion>2.0</EnvelopeVersion>\r\n\t<Header>\r\n\t\t<MessageDetails>\r\n\t\t\t<Class>PBL_MCIT_Petrol_PricesMob</Class>\r\n\t\t\t<Qualifier>poll</Qualifier>\r\n\t\t\t<Function>submit</Function>\r\n\t\t\t<CorrelationID>C542BB94AE624BCD844DCD18AD268DA7</CorrelationID>\r\n\t\t</MessageDetails>\r\n\t\t<SenderDetails>\r\n\t\t\t<IDAuthentication>\r\n\t\t\t\t<SenderID />\r\n\t\t\t\t<Authentication>\r\n\t\t\t\t\t<Method>clear</Method>\r\n\t\t\t\t\t<Value />\r\n\t\t\t\t</Authentication>\r\n\t\t\t</IDAuthentication>\r\n\t\t</SenderDetails>\r\n\t</Header>\r\n\t<GovTalkDetails>\r\n\t\t<Keys>\r\n\t\t\t<Key Type=\"\" />\r\n\t\t</Keys>\r\n\t</GovTalkDetails>\r\n\t<Body />\r\n</GovTalkMessage>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://aztest.cyprus.gov.cy/gg/poll",
+					"protocol": "https",
+					"host": [
+						"aztest",
+						"cyprus",
+						"gov",
+						"cy"
+					],
+					"path": [
+						"gg",
+						"poll"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

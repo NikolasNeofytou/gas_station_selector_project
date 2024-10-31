@@ -1,0 +1,1493 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--Created with Liquid XML Studio Developer Edition 9.0.11.3078 (http://www.liquid-technologies.com)-->
+<xs:schema xmlns="http://gateway.gov/schema/common/v1" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://gateway.gov/schema/common/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="Message">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Header">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Vendor" type="xs:string" />
+                            <xs:element name="Signatures" type="SignatureBodyCollection" minOccurs="0" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Body">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:any namespace="##any" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Metadata" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Culture" type="xs:string" minOccurs="0" />
+                            <xs:element name="Class" type="xs:string" minOccurs="0" />
+                            <xs:element name="Status" type="xs:string" minOccurs="0" />
+                            <xs:element name="PayAmount" type="Money" minOccurs="0" />
+                            <xs:element name="PayReferenceNo" type="xs:string" minOccurs="0" />
+                            <xs:element name="Other" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:any namespace="##any" processContents="skip" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Steps" type="WorkflowStepCollection" minOccurs="0" />
+                            <xs:element name="PayCitizen" type="Citizen" minOccurs="0" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Version" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Element">
+        <xs:complexType>
+            <xs:sequence />
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="WorkflowStep">
+        <xs:attribute name="StepKey" type="xs:int" />
+        <xs:attribute name="IsCompleted" type="xs:boolean" />
+        <xs:attribute name="NextStepKey" type="xs:int" />
+        <xs:attribute name="OwnerKey" type="xs:int" />
+        <xs:attribute name="OwnerCode" type="xs:string" />
+        <xs:attribute name="Identifier" type="xs:string" />
+    </xs:complexType>
+    <xs:complexType name="WorkflowStepCollection">
+        <xs:sequence maxOccurs="unbounded">
+            <xs:element name="Step" type="WorkflowStep" />
+        </xs:sequence>
+        <xs:attribute name="CurrentStepKey" type="xs:int" />
+        <xs:attribute name="IsPortalWofklow" type="xs:boolean" />
+        <xs:attribute name="TotalSteps" type="xs:int" />
+        <xs:attribute name="IsSignaturesRequired" type="xs:boolean" />
+        <xs:attribute name="OwnerKey" type="xs:int" />
+        <xs:attribute name="IsCompleted" type="xs:boolean" />
+        <xs:attribute name="Identifier" type="xs:string" />
+    </xs:complexType>
+    <xs:complexType name="SignatureBody">
+        <xs:sequence>
+            <xs:element name="Value">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:any namespace="##any" processContents="skip" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Xaml">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:any namespace="##any" processContents="skip" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="SignatoryKey" type="xs:int" />
+        <xs:attribute name="IsSigned" type="xs:boolean" />
+        <xs:attribute name="ReferenceURI" type="xs:string" />
+        <xs:attribute name="SignatoryCode" type="xs:string" />
+    </xs:complexType>
+    <xs:complexType name="SignatureBodyCollection">
+        <xs:sequence maxOccurs="unbounded">
+            <xs:element name="SignatureSignatory" type="SignatureBody" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Command">
+        <xs:sequence />
+    </xs:complexType>
+    <xs:complexType name="Request">
+        <xs:annotation>
+            <xs:documentation>Generic Request</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Command" />
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="Response">
+        <xs:annotation>
+            <xs:documentation>Generic Response</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Command">
+                <xs:sequence>
+                    <xs:element name="Message" type="xs:string" nillable="true" />
+                    <xs:element name="Messages" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Message" type="Translation" maxOccurs="unbounded" />
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="Code" type="xs:int" use="optional" />
+                <xs:attribute name="Success" type="xs:boolean" use="optional" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="Form">
+        <xs:annotation>
+            <xs:documentation>This element contains the definition for an e-Form.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Name" type="xs:string" />
+            <xs:element name="Identifier" type="Guid" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Address">
+        <xs:annotation>
+            <xs:documentation>Address</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Number" type="AddressNumber" />
+            <xs:element name="ApartmentNo" type="xs:string" nillable="true" />
+            <xs:element name="Street" type="xs:string" />
+            <xs:element name="Postcode" type="AddressPostcode" />
+            <xs:element name="Community" type="xs:string" nillable="true" />
+            <xs:element name="District" type="xs:string" />
+            <xs:element name="City" type="AddressCity" nillable="true" />
+            <xs:element name="Country" type="Country" />
+            <xs:element name="Phones" type="PhoneCollection" minOccurs="0" />
+            <xs:element name="PostOfficeBox" type="xs:string" minOccurs="0" nillable="true" />
+        </xs:sequence>
+        <xs:attribute name="Type" type="AddressType" default="Home" />
+        <xs:attribute name="BuildingType" type="AddressBuildingType" default="House" />
+    </xs:complexType>
+    <xs:complexType name="AddressCollection">
+        <xs:annotation>
+            <xs:documentation>Address Collection</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Address" type="Address" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Phone">
+        <xs:annotation>
+            <xs:documentation>Phone</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Number" type="PhoneNumber" />
+            <xs:element name="Type" type="PhoneType" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PhoneCollection">
+        <xs:annotation>
+            <xs:documentation>Phone Collection</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Phone" type="Phone" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Identity">
+        <xs:sequence>
+            <xs:element name="Number" type="xs:string" />
+        </xs:sequence>
+        <xs:attribute name="Type" type="IdentityType" default="CivilId" use="optional" />
+    </xs:complexType>
+    <xs:complexType name="IdentityCollection">
+        <xs:sequence>
+            <xs:element name="Identity" type="Identity" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CitizenshipCollection">
+        <xs:sequence>
+            <xs:element name="Citizenship" type="Citizenship" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="LanguageCodeCollection">
+        <xs:sequence>
+            <xs:element name="Code" type="LanguageCode" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CountryCollection">
+        <xs:sequence>
+            <xs:element name="Country" type="Country" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Period">
+        <xs:sequence>
+            <xs:element name="From" type="xs:date" />
+            <xs:element name="To" type="xs:date" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PeriodCollection">
+        <xs:sequence>
+            <xs:element name="Period" type="Period" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Collection">
+        <xs:sequence>
+            <xs:element name="Count" type="xs:int" minOccurs="0" nillable="true" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Translation">
+        <xs:sequence>
+            <xs:element name="Key" type="CultureCode" />
+            <xs:element name="Value" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TranslationCollection">
+        <xs:sequence>
+            <xs:element name="Key" type="xs:string" />
+            <xs:element name="Translation" type="Translation" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TranslationCollectionList">
+        <xs:sequence>
+            <xs:element name="Translation" type="TranslationCollection" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Citizen">
+        <xs:sequence>
+            <xs:element name="Code" type="xs:string" />
+            <xs:element name="Name" type="xs:string" minOccurs="0" nillable="true" />
+            <xs:element name="UniqueIdentifier" type="xs:string" minOccurs="0" />
+            <xs:element name="Email" type="Email" minOccurs="0" />
+            <xs:element name="Type" type="CitizenType" minOccurs="0" default="Individual" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="CitizenType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Individual" />
+            <xs:enumeration value="Organisation" />
+            <xs:enumeration value="Agent" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="AddressType">
+        <xs:annotation>
+            <xs:documentation>Adress Type</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Home" />
+            <xs:enumeration value="Business" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="AddressBuildingType">
+        <xs:annotation>
+            <xs:documentation>Address Building Type</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="House" />
+            <xs:enumeration value="Apartment" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="AddressNumber">
+        <xs:annotation>
+            <xs:documentation>Adress Number</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string" />
+    </xs:simpleType>
+    <xs:simpleType name="AddressPostcode">
+        <xs:annotation>
+            <xs:documentation>Adress Postcode</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:minLength value="4" />
+            <xs:maxLength value="5" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="AddressCity">
+        <xs:annotation>
+            <xs:documentation>Address City</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Undefined" />
+            <xs:enumeration value="Nicosia" />
+            <xs:enumeration value="Larnaca" />
+            <xs:enumeration value="Limassol" />
+            <xs:enumeration value="Paphos" />
+            <xs:enumeration value="Famagusta" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Country">
+        <xs:annotation>
+            <xs:documentation>Country</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AFGHANISTAN" />
+            <xs:enumeration value="ALAND ISLANDS" />
+            <xs:enumeration value="ALBANIA" />
+            <xs:enumeration value="ALGERIA" />
+            <xs:enumeration value="AMERICAN SAMOA" />
+            <xs:enumeration value="ANDORRA" />
+            <xs:enumeration value="ANGOLA" />
+            <xs:enumeration value="ANGUILLA" />
+            <xs:enumeration value="ANTARCTICA" />
+            <xs:enumeration value="ANTIGUA AND BARBUDA" />
+            <xs:enumeration value="ARGENTINA" />
+            <xs:enumeration value="ARMENIA" />
+            <xs:enumeration value="ARUBA" />
+            <xs:enumeration value="AUSTRALIA" />
+            <xs:enumeration value="AUSTRIA" />
+            <xs:enumeration value="AZERBAIJAN" />
+            <xs:enumeration value="BAHAMAS" />
+            <xs:enumeration value="BAHRAIN" />
+            <xs:enumeration value="BANGLADESH" />
+            <xs:enumeration value="BARBADOS" />
+            <xs:enumeration value="BELARUS" />
+            <xs:enumeration value="BELGIUM" />
+            <xs:enumeration value="BELIZE" />
+            <xs:enumeration value="BENIN" />
+            <xs:enumeration value="BERMUDA" />
+            <xs:enumeration value="BHUTAN" />
+            <xs:enumeration value="BOLIVIA" />
+            <xs:enumeration value="BOSNIA AND HERZEGOVINA" />
+            <xs:enumeration value="BOTSWANA" />
+            <xs:enumeration value="BOUVET ISLAND" />
+            <xs:enumeration value="BRAZIL" />
+            <xs:enumeration value="BRITISH INDIAN OCEAN TERRITORY" />
+            <xs:enumeration value="BRUNEI DARUSSALAM" />
+            <xs:enumeration value="BULGARIA" />
+            <xs:enumeration value="BURKINA FASO" />
+            <xs:enumeration value="BURUNDI" />
+            <xs:enumeration value="CAMBODIA" />
+            <xs:enumeration value="CAMEROON" />
+            <xs:enumeration value="CANADA" />
+            <xs:enumeration value="CAPE VERDE" />
+            <xs:enumeration value="CAYMAN ISLANDS" />
+            <xs:enumeration value="CENTRAL AFRICAN REPUBLIC" />
+            <xs:enumeration value="CHAD" />
+            <xs:enumeration value="CHILE" />
+            <xs:enumeration value="CHINA" />
+            <xs:enumeration value="CHRISTMAS ISLAND" />
+            <xs:enumeration value="COCOS (KEELING) ISLANDS" />
+            <xs:enumeration value="COLOMBIA" />
+            <xs:enumeration value="COMOROS" />
+            <xs:enumeration value="CONGO" />
+            <xs:enumeration value="CONGO, THE DEMOCRATIC REPUBLIC OF THE" />
+            <xs:enumeration value="COOK ISLANDS" />
+            <xs:enumeration value="COSTA RICA" />
+            <xs:enumeration value="COTE D'IVOIRE" />
+            <xs:enumeration value="CROATIA" />
+            <xs:enumeration value="CUBA" />
+            <xs:enumeration value="CYPRUS" />
+            <xs:enumeration value="CZECH REPUBLIC" />
+            <xs:enumeration value="DENMARK" />
+            <xs:enumeration value="DJIBOUTI" />
+            <xs:enumeration value="DOMINICA" />
+            <xs:enumeration value="DOMINICAN REPUBLIC" />
+            <xs:enumeration value="ECUADOR" />
+            <xs:enumeration value="EGYPT" />
+            <xs:enumeration value="EL SALVADOR" />
+            <xs:enumeration value="EQUATORIAL GUINEA" />
+            <xs:enumeration value="ERITREA" />
+            <xs:enumeration value="ESTONIA" />
+            <xs:enumeration value="ETHIOPIA" />
+            <xs:enumeration value="FALKLAND ISLANDS (MALVINAS)" />
+            <xs:enumeration value="FAROE ISLANDS" />
+            <xs:enumeration value="FIJI" />
+            <xs:enumeration value="FINLAND" />
+            <xs:enumeration value="FRANCE" />
+            <xs:enumeration value="FRENCH GUIANA" />
+            <xs:enumeration value="FRENCH POLYNESIA" />
+            <xs:enumeration value="FRENCH SOUTHERN TERRITORIES" />
+            <xs:enumeration value="GABON" />
+            <xs:enumeration value="GAMBIA" />
+            <xs:enumeration value="GEORGIA" />
+            <xs:enumeration value="GERMANY" />
+            <xs:enumeration value="GHANA" />
+            <xs:enumeration value="GIBRALTAR" />
+            <xs:enumeration value="GREECE" />
+            <xs:enumeration value="GREENLAND" />
+            <xs:enumeration value="GRENADA" />
+            <xs:enumeration value="GUADELOUPE" />
+            <xs:enumeration value="GUAM" />
+            <xs:enumeration value="GUATEMALA" />
+            <xs:enumeration value="GUERNSEY" />
+            <xs:enumeration value="GUINEA" />
+            <xs:enumeration value="GUINEA-BISSAU" />
+            <xs:enumeration value="GUYANA" />
+            <xs:enumeration value="HAITI" />
+            <xs:enumeration value="HEARD ISLAND AND MCDONALD ISLANDS" />
+            <xs:enumeration value="HONDURAS" />
+            <xs:enumeration value="HONG KONG" />
+            <xs:enumeration value="HUNGARY" />
+            <xs:enumeration value="ICELAND" />
+            <xs:enumeration value="INDIA" />
+            <xs:enumeration value="INDONESIA" />
+            <xs:enumeration value="IRAN (ISLAMIC REPUBLIC OF)" />
+            <xs:enumeration value="IRAQ" />
+            <xs:enumeration value="IRELAND" />
+            <xs:enumeration value="ISLE OF MAN" />
+            <xs:enumeration value="ISRAEL" />
+            <xs:enumeration value="ITALY" />
+            <xs:enumeration value="JAMAICA" />
+            <xs:enumeration value="JAPAN" />
+            <xs:enumeration value="JERSEY" />
+            <xs:enumeration value="JORDAN" />
+            <xs:enumeration value="KAZAKHSTAN" />
+            <xs:enumeration value="KENYA" />
+            <xs:enumeration value="KIRIBATI" />
+            <xs:enumeration value="KOREA, DEMOCRATIC PEOPLE'S REPUBLIC OF" />
+            <xs:enumeration value="KOREA, REPUBLIC OF" />
+            <xs:enumeration value="KUWAIT" />
+            <xs:enumeration value="KYRGYZSTAN" />
+            <xs:enumeration value="LAO PEOPLE'S DEMOCRATIC REPUBLIC" />
+            <xs:enumeration value="LATVIA" />
+            <xs:enumeration value="LEBANON" />
+            <xs:enumeration value="LESOTHO" />
+            <xs:enumeration value="LIBERIA" />
+            <xs:enumeration value="LIBYAN ARAB JAMAHIRIYA" />
+            <xs:enumeration value="LIECHTENSTEIN" />
+            <xs:enumeration value="LITHUANIA" />
+            <xs:enumeration value="LUXEMBOURG" />
+            <xs:enumeration value="MACAO" />
+            <xs:enumeration value="MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF" />
+            <xs:enumeration value="MADAGASCAR" />
+            <xs:enumeration value="MALAWI" />
+            <xs:enumeration value="MALAYSIA" />
+            <xs:enumeration value="MALDIVES" />
+            <xs:enumeration value="MALI" />
+            <xs:enumeration value="MALTA" />
+            <xs:enumeration value="MARSHALL ISLANDS" />
+            <xs:enumeration value="MARTINIQUE" />
+            <xs:enumeration value="MAURITANIA" />
+            <xs:enumeration value="MAURITIUS" />
+            <xs:enumeration value="MAYOTTE" />
+            <xs:enumeration value="MEXICO" />
+            <xs:enumeration value="MICRONESIA, FEDERATED STATES OF" />
+            <xs:enumeration value="MOLDOVA, REPUBLIC OF" />
+            <xs:enumeration value="MONACO" />
+            <xs:enumeration value="MONGOLIA" />
+            <xs:enumeration value="MONTENEGRO" />
+            <xs:enumeration value="MONTSERRAT" />
+            <xs:enumeration value="MOROCCO" />
+            <xs:enumeration value="MOZAMBIQUE" />
+            <xs:enumeration value="MYANMAR" />
+            <xs:enumeration value="NAMIBIA" />
+            <xs:enumeration value="NAURU" />
+            <xs:enumeration value="NEPAL" />
+            <xs:enumeration value="NETHERLANDS" />
+            <xs:enumeration value="NETHERLANDS ANTILLES" />
+            <xs:enumeration value="NEW CALEDONIA" />
+            <xs:enumeration value="NEW ZEALAND" />
+            <xs:enumeration value="NICARAGUA" />
+            <xs:enumeration value="NIGER" />
+            <xs:enumeration value="NIGERIA" />
+            <xs:enumeration value="NIUE" />
+            <xs:enumeration value="NORFOLK ISLAND" />
+            <xs:enumeration value="NORTHERN MARIANA ISLANDS" />
+            <xs:enumeration value="NORWAY" />
+            <xs:enumeration value="OMAN" />
+            <xs:enumeration value="PAKISTAN" />
+            <xs:enumeration value="PALAU" />
+            <xs:enumeration value="PALESTINIAN TERRITORY, OCCUPIED" />
+            <xs:enumeration value="PANAMA" />
+            <xs:enumeration value="PAPUA NEW GUINEA" />
+            <xs:enumeration value="PARAGUAY" />
+            <xs:enumeration value="PERU" />
+            <xs:enumeration value="PHILIPPINES" />
+            <xs:enumeration value="PITCAIRN" />
+            <xs:enumeration value="POLAND" />
+            <xs:enumeration value="PORTUGAL" />
+            <xs:enumeration value="PUERTO RICO" />
+            <xs:enumeration value="QATAR" />
+            <xs:enumeration value="REUNION" />
+            <xs:enumeration value="ROMANIA" />
+            <xs:enumeration value="RUSSIAN FEDERATION" />
+            <xs:enumeration value="RWANDA" />
+            <xs:enumeration value="SAINT BARTHELEMY" />
+            <xs:enumeration value="SAINT HELENA" />
+            <xs:enumeration value="SAINT KITTS AND NEVIS" />
+            <xs:enumeration value="SAINT LUCIA" />
+            <xs:enumeration value="SAINT PIERRE AND MIQUELON" />
+            <xs:enumeration value="SAINT VINCENT AND THE GRENADINES" />
+            <xs:enumeration value="SAMOA" />
+            <xs:enumeration value="SAN MARINO" />
+            <xs:enumeration value="SAO TOME AND PRINCIPE" />
+            <xs:enumeration value="SAUDI ARABIA" />
+            <xs:enumeration value="SENEGAL" />
+            <xs:enumeration value="SERBIA" />
+            <xs:enumeration value="SEYCHELLES" />
+            <xs:enumeration value="SIERRA LEONE" />
+            <xs:enumeration value="SINGAPORE" />
+            <xs:enumeration value="SLOVAKIA" />
+            <xs:enumeration value="SLOVENIA" />
+            <xs:enumeration value="SOLOMON ISLANDS" />
+            <xs:enumeration value="SOMALIA" />
+            <xs:enumeration value="SOUTH AFRICA" />
+            <xs:enumeration value="SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS" />
+            <xs:enumeration value="SPAIN" />
+            <xs:enumeration value="SRI LANKA" />
+            <xs:enumeration value="SUDAN" />
+            <xs:enumeration value="SURINAME" />
+            <xs:enumeration value="SVALBARD AND JAN MAYE" />
+            <xs:enumeration value="SWAZILAND" />
+            <xs:enumeration value="SWEDEN" />
+            <xs:enumeration value="SWITZERLAND" />
+            <xs:enumeration value="SYRIAN ARAB REPUBLIC" />
+            <xs:enumeration value="TAIWAN, PROVINCE OF CHINA" />
+            <xs:enumeration value="TAJIKISTAN" />
+            <xs:enumeration value="TANZANIA, UNITED REPUBLIC OF" />
+            <xs:enumeration value="THAILAND" />
+            <xs:enumeration value="TIMOR-LESTE" />
+            <xs:enumeration value="TOGO" />
+            <xs:enumeration value="TOKELAU" />
+            <xs:enumeration value="TONGA" />
+            <xs:enumeration value="TRINIDAD AND TOBAGO" />
+            <xs:enumeration value="TUNISIA" />
+            <xs:enumeration value="TURKEY" />
+            <xs:enumeration value="TURKMENISTAN" />
+            <xs:enumeration value="TURKS AND CAICOS ISLANDS" />
+            <xs:enumeration value="TUVALU" />
+            <xs:enumeration value="UGANDA" />
+            <xs:enumeration value="UKRAINE" />
+            <xs:enumeration value="UNITED ARAB EMIRATES" />
+            <xs:enumeration value="UNITED KINGDOM" />
+            <xs:enumeration value="UNITED STATES" />
+            <xs:enumeration value="UNITED STATES MINOR OUTLYING ISLANDS" />
+            <xs:enumeration value="URUGUAY" />
+            <xs:enumeration value="UZBEKISTAN" />
+            <xs:enumeration value="VANUATU" />
+            <xs:enumeration value="VATICAN CITY STATE (HOLY SEE)" />
+            <xs:enumeration value="VENEZUELA, BOLIVARIAN REPUBLIC OF" />
+            <xs:enumeration value="VIET NAM" />
+            <xs:enumeration value="VIRGIN ISLANDS (BRITISH)" />
+            <xs:enumeration value="VIRGIN ISLANDS (U.S.)" />
+            <xs:enumeration value="WALLIS AND FUTUNA" />
+            <xs:enumeration value="WESTERN SAHARA" />
+            <xs:enumeration value="YEMEN" />
+            <xs:enumeration value="YUGOSLAVIA" />
+            <xs:enumeration value="ZAMBIA" />
+            <xs:enumeration value="ZIMBABWE" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CountryEU">
+        <xs:annotation>
+            <xs:documentation>CountryEU</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Cyprus" />
+            <xs:enumeration value="Greece" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Citizenship">
+        <xs:annotation>
+            <xs:documentation>Citizenship</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Austria" />
+            <xs:enumeration value="Belgium" />
+            <xs:enumeration value="Bulgaria" />
+            <xs:enumeration value="Croatia" />
+            <xs:enumeration value="Cypriot" />
+            <xs:enumeration value="Czech Republic" />
+            <xs:enumeration value="Denmark" />
+            <xs:enumeration value="Estonia" />
+            <xs:enumeration value="Finland" />
+            <xs:enumeration value="France" />
+            <xs:enumeration value="Germany" />
+            <xs:enumeration value="Greek" />
+            <xs:enumeration value="Hungary" />
+            <xs:enumeration value="Iceland" />
+            <xs:enumeration value="Ireland" />
+            <xs:enumeration value="Italy" />
+            <xs:enumeration value="Latvia" />
+            <xs:enumeration value="Lichtenstein" />
+            <xs:enumeration value="Lithuania" />
+            <xs:enumeration value="Luxemburg" />
+            <xs:enumeration value="Malta" />
+            <xs:enumeration value="Netherlands" />
+            <xs:enumeration value="Norway" />
+            <xs:enumeration value="Poland" />
+            <xs:enumeration value="Portugal" />
+            <xs:enumeration value="Romania" />
+            <xs:enumeration value="Slovakia" />
+            <xs:enumeration value="Slovenia" />
+            <xs:enumeration value="Spain" />
+            <xs:enumeration value="Sweden" />
+            <xs:enumeration value="United Kingdom" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PhoneNumber">
+        <xs:annotation>
+            <xs:documentation>Phone Number</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="|[0-9]{8,}" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PhoneType">
+        <xs:annotation>
+            <xs:documentation>Phone Type</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Home" />
+            <xs:enumeration value="Fax" />
+            <xs:enumeration value="Work" />
+            <xs:enumeration value="Mobile" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Email">
+        <xs:annotation>
+            <xs:documentation>Email</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="|(([a-zA-Z0-9]+([\.+_-][a-zA-Z0-9]+)*)@(([a-zA-Z0-9]+((\.|[-]{1,2})[a-zA-Z0-9]+)*)\.[a-zA-Z]{2,6}))" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Guid">
+        <xs:annotation>
+            <xs:documentation>Globally unique identifier</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[({]?(0x)?[0-9a-fA-F]{8}([-,]?(0x)?[0-9a-fA-F]{4}){2}((-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{12})|(,\{0x[0-9a-fA-F]{2}(,0x[0-9a-fA-F]{2}){7}\}))[)}]?" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="URL">
+        <xs:annotation>
+            <xs:documentation>Uniform Resource Locator</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="|((((file|gopher|news|nntp|telnet|http|ftp|https|ftps|sftp)://)|(www\.))+(([a-zA-Z0-9\._-]+\.[a-zA-Z]{2,6})|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(/[a-zA-Z0-9&amp;%_\./-~-]*)?)" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CurrencyIsoAlphaCode">
+        <xs:annotation>
+            <xs:documentation>Currency ISO Alpha Code</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AED" />
+            <xs:enumeration value="AFN" />
+            <xs:enumeration value="ALL" />
+            <xs:enumeration value="AMD" />
+            <xs:enumeration value="ANG" />
+            <xs:enumeration value="AOA" />
+            <xs:enumeration value="ARS" />
+            <xs:enumeration value="AUD" />
+            <xs:enumeration value="AWG" />
+            <xs:enumeration value="AZN" />
+            <xs:enumeration value="BAM" />
+            <xs:enumeration value="BBD" />
+            <xs:enumeration value="BDT" />
+            <xs:enumeration value="BGN" />
+            <xs:enumeration value="BHD" />
+            <xs:enumeration value="BIF" />
+            <xs:enumeration value="BMD" />
+            <xs:enumeration value="BND" />
+            <xs:enumeration value="BOB" />
+            <xs:enumeration value="BOV" />
+            <xs:enumeration value="BRL" />
+            <xs:enumeration value="BSD" />
+            <xs:enumeration value="BTN" />
+            <xs:enumeration value="BWP" />
+            <xs:enumeration value="BYR" />
+            <xs:enumeration value="BZD" />
+            <xs:enumeration value="CAD" />
+            <xs:enumeration value="CDF" />
+            <xs:enumeration value="CHE" />
+            <xs:enumeration value="CHF" />
+            <xs:enumeration value="CHW" />
+            <xs:enumeration value="CLF" />
+            <xs:enumeration value="CLP" />
+            <xs:enumeration value="CNY" />
+            <xs:enumeration value="COP" />
+            <xs:enumeration value="COU" />
+            <xs:enumeration value="CRC" />
+            <xs:enumeration value="CUP" />
+            <xs:enumeration value="CVE" />
+            <xs:enumeration value="CYP" />
+            <xs:enumeration value="CZK" />
+            <xs:enumeration value="DJF" />
+            <xs:enumeration value="DKK" />
+            <xs:enumeration value="DOP" />
+            <xs:enumeration value="DZD" />
+            <xs:enumeration value="EEK" />
+            <xs:enumeration value="EGP" />
+            <xs:enumeration value="ERN" />
+            <xs:enumeration value="ETB" />
+            <xs:enumeration value="EUR" />
+            <xs:enumeration value="FJD" />
+            <xs:enumeration value="FKP" />
+            <xs:enumeration value="GBP" />
+            <xs:enumeration value="GEL" />
+            <xs:enumeration value="GHS" />
+            <xs:enumeration value="GIP" />
+            <xs:enumeration value="GMD" />
+            <xs:enumeration value="GNF" />
+            <xs:enumeration value="GTQ" />
+            <xs:enumeration value="GYD" />
+            <xs:enumeration value="HKD" />
+            <xs:enumeration value="HNL" />
+            <xs:enumeration value="HRK" />
+            <xs:enumeration value="HTG" />
+            <xs:enumeration value="HUF" />
+            <xs:enumeration value="IDR" />
+            <xs:enumeration value="ILS" />
+            <xs:enumeration value="INR" />
+            <xs:enumeration value="IQD" />
+            <xs:enumeration value="IRR" />
+            <xs:enumeration value="ISK" />
+            <xs:enumeration value="JMD" />
+            <xs:enumeration value="JOD" />
+            <xs:enumeration value="JPY" />
+            <xs:enumeration value="KES" />
+            <xs:enumeration value="KGS" />
+            <xs:enumeration value="KHR" />
+            <xs:enumeration value="KMF" />
+            <xs:enumeration value="KPW" />
+            <xs:enumeration value="KRW" />
+            <xs:enumeration value="KWD" />
+            <xs:enumeration value="KYD" />
+            <xs:enumeration value="KZT" />
+            <xs:enumeration value="LAK" />
+            <xs:enumeration value="LBP" />
+            <xs:enumeration value="LKR" />
+            <xs:enumeration value="LRD" />
+            <xs:enumeration value="LSL" />
+            <xs:enumeration value="LTL" />
+            <xs:enumeration value="LVL" />
+            <xs:enumeration value="LYD" />
+            <xs:enumeration value="MAD" />
+            <xs:enumeration value="MDL" />
+            <xs:enumeration value="MKD" />
+            <xs:enumeration value="MMK" />
+            <xs:enumeration value="MNT" />
+            <xs:enumeration value="MOP" />
+            <xs:enumeration value="MUR" />
+            <xs:enumeration value="MVR" />
+            <xs:enumeration value="MWK" />
+            <xs:enumeration value="MXN" />
+            <xs:enumeration value="MXV" />
+            <xs:enumeration value="MYR" />
+            <xs:enumeration value="MZN" />
+            <xs:enumeration value="NAD" />
+            <xs:enumeration value="NGN" />
+            <xs:enumeration value="NIO" />
+            <xs:enumeration value="NOK" />
+            <xs:enumeration value="NPR" />
+            <xs:enumeration value="NZD" />
+            <xs:enumeration value="OMR" />
+            <xs:enumeration value="PAB" />
+            <xs:enumeration value="PEN" />
+            <xs:enumeration value="PGK" />
+            <xs:enumeration value="PHP" />
+            <xs:enumeration value="PKR" />
+            <xs:enumeration value="PLN" />
+            <xs:enumeration value="PYG" />
+            <xs:enumeration value="QAR" />
+            <xs:enumeration value="RON" />
+            <xs:enumeration value="RSD" />
+            <xs:enumeration value="RUB" />
+            <xs:enumeration value="RWF" />
+            <xs:enumeration value="SAR" />
+            <xs:enumeration value="SBD" />
+            <xs:enumeration value="SCR" />
+            <xs:enumeration value="SDG" />
+            <xs:enumeration value="SEK" />
+            <xs:enumeration value="SGD" />
+            <xs:enumeration value="SHP" />
+            <xs:enumeration value="SLL" />
+            <xs:enumeration value="SOS" />
+            <xs:enumeration value="SRD" />
+            <xs:enumeration value="STD" />
+            <xs:enumeration value="SYP" />
+            <xs:enumeration value="SZL" />
+            <xs:enumeration value="THB" />
+            <xs:enumeration value="TJS" />
+            <xs:enumeration value="TMT" />
+            <xs:enumeration value="TND" />
+            <xs:enumeration value="TOP" />
+            <xs:enumeration value="TRY" />
+            <xs:enumeration value="TTD" />
+            <xs:enumeration value="TWD" />
+            <xs:enumeration value="TZS" />
+            <xs:enumeration value="UAH" />
+            <xs:enumeration value="UGX" />
+            <xs:enumeration value="USD" />
+            <xs:enumeration value="USN" />
+            <xs:enumeration value="USS" />
+            <xs:enumeration value="UYU" />
+            <xs:enumeration value="UZS" />
+            <xs:enumeration value="VEF" />
+            <xs:enumeration value="VND" />
+            <xs:enumeration value="VUV" />
+            <xs:enumeration value="WST" />
+            <xs:enumeration value="XAF" />
+            <xs:enumeration value="XCD" />
+            <xs:enumeration value="XOF" />
+            <xs:enumeration value="XPF" />
+            <xs:enumeration value="YER" />
+            <xs:enumeration value="ZAR" />
+            <xs:enumeration value="ZMK" />
+            <xs:enumeration value="ZWL" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Money">
+        <xs:annotation>
+            <xs:documentation>Money</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:decimal">
+            <xs:fractionDigits value="2" />
+            <xs:minInclusive value="0" />
+            <xs:maxExclusive value="1000000" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Amount">
+        <xs:annotation>
+            <xs:documentation>Money</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:int">
+            <xs:maxExclusive value="1000000" />
+            <xs:minExclusive value="0" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="LanguageCode">
+        <xs:annotation>
+            <xs:documentation>Language Code</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="EN" />
+            <xs:enumeration value="EL" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CultureCode">
+        <xs:annotation>
+            <xs:documentation>Culture Code</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="^en-GB|el-GR$" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="GenderType">
+        <xs:annotation>
+            <xs:documentation>Gender Type</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Male" />
+            <xs:enumeration value="Female" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="IdentityType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CivilId" />
+            <xs:enumeration value="PassportNo" />
+            <xs:enumeration value="PersonalNo" />
+            <xs:enumeration value="ARC" />
+            <xs:enumeration value="CompanyRegistrationNo" />
+            <xs:enumeration value="VotingBooklet" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="MaritalStatus">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Single" />
+            <xs:enumeration value="Married" />
+            <xs:enumeration value="Divorced" />
+            <xs:enumeration value="Widowed" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="RelativeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Father" />
+            <xs:enumeration value="Mother" />
+            <xs:enumeration value="Brother" />
+            <xs:enumeration value="Sister" />
+            <xs:enumeration value="Son" />
+            <xs:enumeration value="Daughter" />
+            <xs:enumeration value="Cousin" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="OccupationType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Employed" />
+            <xs:enumeration value="SelfEmployed" />
+            <xs:enumeration value="Retired" />
+            <xs:enumeration value="Other" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="IBAN">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="|[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Age">
+        <xs:restriction base="xs:int">
+            <xs:minInclusive value="0" />
+            <xs:maxInclusive value="150" />
+            <xs:fractionDigits value="0" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="File">
+        <xs:simpleContent>
+            <xs:extension base="xs:base64Binary">
+                <xs:attribute name="Name" type="xs:string" />
+                <xs:attribute name="Extension" type="xs:string" />
+                <xs:attribute name="Id" type="xs:string" />
+                <xs:attribute name="Bytes" type="xs:int" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="AttachmentCollection">
+        <xs:sequence>
+            <xs:element name="Content">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="DataSource" nillable="true">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="File" type="File" minOccurs="0" maxOccurs="unbounded" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Attachment">
+        <xs:sequence>
+            <xs:element name="Content">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="DataSource" nillable="true">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="File" type="File" minOccurs="0" maxOccurs="1" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="EnumerationHost">
+        <xs:annotation>
+            <xs:documentation>A complex type used just to reference all the enums in Common.xsd so that they are properly generated by xsd2code</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="AddressBuildingType" type="AddressBuildingType" />
+            <xs:element name="AddressCity" type="AddressCity" />
+            <xs:element name="AddressPostcode" type="AddressPostcode" />
+            <xs:element name="AddressType" type="AddressType" />
+            <xs:element name="Citizenship" type="Citizenship" />
+            <xs:element name="Country" type="Country" />
+            <xs:element name="CountryEU" type="CountryEU" />
+            <xs:element name="CurrencyIsoAlphaCode" type="CurrencyIsoAlphaCode" />
+            <xs:element name="GenderType" type="GenderType" />
+            <xs:element name="IdentityType" type="IdentityType" />
+            <xs:element name="LanguageCode" type="LanguageCode" />
+            <xs:element name="MaritalStatus" type="MaritalStatus" />
+            <xs:element name="OccupationType" type="OccupationType" />
+            <xs:element name="PhoneType" type="PhoneType" />
+            <xs:element name="RelativeType" type="RelativeType" />
+            <xs:element name="CountryISOAlphaCode2" type="CountryISOAlphaCode2" />
+            <xs:element name="CountryISOAlphaCode3" type="CountryISOAlphaCode3" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="CountryISOAlphaCode2">
+        <xs:annotation>
+            <xs:documentation>Country ISO Alpha Code 2</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AD" />
+            <xs:enumeration value="AE" />
+            <xs:enumeration value="AF" />
+            <xs:enumeration value="AG" />
+            <xs:enumeration value="AI" />
+            <xs:enumeration value="AL" />
+            <xs:enumeration value="AM" />
+            <xs:enumeration value="AO" />
+            <xs:enumeration value="AQ" />
+            <xs:enumeration value="AR" />
+            <xs:enumeration value="AS" />
+            <xs:enumeration value="AT" />
+            <xs:enumeration value="AU" />
+            <xs:enumeration value="AW" />
+            <xs:enumeration value="AX" />
+            <xs:enumeration value="AZ" />
+            <xs:enumeration value="BA" />
+            <xs:enumeration value="BB" />
+            <xs:enumeration value="BD" />
+            <xs:enumeration value="BE" />
+            <xs:enumeration value="BF" />
+            <xs:enumeration value="BG" />
+            <xs:enumeration value="BH" />
+            <xs:enumeration value="BI" />
+            <xs:enumeration value="BJ" />
+            <xs:enumeration value="BL" />
+            <xs:enumeration value="BM" />
+            <xs:enumeration value="BN" />
+            <xs:enumeration value="BO" />
+            <xs:enumeration value="BQ" />
+            <xs:enumeration value="BR" />
+            <xs:enumeration value="BS" />
+            <xs:enumeration value="BT" />
+            <xs:enumeration value="BV" />
+            <xs:enumeration value="BW" />
+            <xs:enumeration value="BY" />
+            <xs:enumeration value="BZ" />
+            <xs:enumeration value="CA" />
+            <xs:enumeration value="CC" />
+            <xs:enumeration value="CD" />
+            <xs:enumeration value="CF" />
+            <xs:enumeration value="CG" />
+            <xs:enumeration value="CH" />
+            <xs:enumeration value="CI" />
+            <xs:enumeration value="CK" />
+            <xs:enumeration value="CL" />
+            <xs:enumeration value="CM" />
+            <xs:enumeration value="CN" />
+            <xs:enumeration value="CO" />
+            <xs:enumeration value="CR" />
+            <xs:enumeration value="CU" />
+            <xs:enumeration value="CV" />
+            <xs:enumeration value="CW" />
+            <xs:enumeration value="CX" />
+            <xs:enumeration value="CY" />
+            <xs:enumeration value="CZ" />
+            <xs:enumeration value="DE" />
+            <xs:enumeration value="DJ" />
+            <xs:enumeration value="DK" />
+            <xs:enumeration value="DM" />
+            <xs:enumeration value="DO" />
+            <xs:enumeration value="DZ" />
+            <xs:enumeration value="EC" />
+            <xs:enumeration value="EE" />
+            <xs:enumeration value="EG" />
+            <xs:enumeration value="EH" />
+            <xs:enumeration value="ER" />
+            <xs:enumeration value="ES" />
+            <xs:enumeration value="ET" />
+            <xs:enumeration value="FI" />
+            <xs:enumeration value="FJ" />
+            <xs:enumeration value="FK" />
+            <xs:enumeration value="FM" />
+            <xs:enumeration value="FO" />
+            <xs:enumeration value="FR" />
+            <xs:enumeration value="GA" />
+            <xs:enumeration value="GB" />
+            <xs:enumeration value="GD" />
+            <xs:enumeration value="GE" />
+            <xs:enumeration value="GF" />
+            <xs:enumeration value="GG" />
+            <xs:enumeration value="GH" />
+            <xs:enumeration value="GI" />
+            <xs:enumeration value="GL" />
+            <xs:enumeration value="GM" />
+            <xs:enumeration value="GN" />
+            <xs:enumeration value="GP" />
+            <xs:enumeration value="GQ" />
+            <xs:enumeration value="GR" />
+            <xs:enumeration value="GS" />
+            <xs:enumeration value="GT" />
+            <xs:enumeration value="GU" />
+            <xs:enumeration value="GW" />
+            <xs:enumeration value="GY" />
+            <xs:enumeration value="HK" />
+            <xs:enumeration value="HM" />
+            <xs:enumeration value="HN" />
+            <xs:enumeration value="HR" />
+            <xs:enumeration value="HT" />
+            <xs:enumeration value="HU" />
+            <xs:enumeration value="ID" />
+            <xs:enumeration value="IE" />
+            <xs:enumeration value="IL" />
+            <xs:enumeration value="IM" />
+            <xs:enumeration value="IN" />
+            <xs:enumeration value="IO" />
+            <xs:enumeration value="IQ" />
+            <xs:enumeration value="IR" />
+            <xs:enumeration value="IS" />
+            <xs:enumeration value="IT" />
+            <xs:enumeration value="JE" />
+            <xs:enumeration value="JM" />
+            <xs:enumeration value="JO" />
+            <xs:enumeration value="JP" />
+            <xs:enumeration value="KE" />
+            <xs:enumeration value="KG" />
+            <xs:enumeration value="KH" />
+            <xs:enumeration value="KI" />
+            <xs:enumeration value="KM" />
+            <xs:enumeration value="KN" />
+            <xs:enumeration value="KP" />
+            <xs:enumeration value="KR" />
+            <xs:enumeration value="KW" />
+            <xs:enumeration value="KY" />
+            <xs:enumeration value="KZ" />
+            <xs:enumeration value="LA" />
+            <xs:enumeration value="LB" />
+            <xs:enumeration value="LC" />
+            <xs:enumeration value="LI" />
+            <xs:enumeration value="LK" />
+            <xs:enumeration value="LR" />
+            <xs:enumeration value="LS" />
+            <xs:enumeration value="LT" />
+            <xs:enumeration value="LU" />
+            <xs:enumeration value="LV" />
+            <xs:enumeration value="LY" />
+            <xs:enumeration value="MA" />
+            <xs:enumeration value="MC" />
+            <xs:enumeration value="MD" />
+            <xs:enumeration value="ME" />
+            <xs:enumeration value="MF" />
+            <xs:enumeration value="MG" />
+            <xs:enumeration value="MH" />
+            <xs:enumeration value="MK" />
+            <xs:enumeration value="ML" />
+            <xs:enumeration value="MM" />
+            <xs:enumeration value="MN" />
+            <xs:enumeration value="MO" />
+            <xs:enumeration value="MP" />
+            <xs:enumeration value="MQ" />
+            <xs:enumeration value="MR" />
+            <xs:enumeration value="MS" />
+            <xs:enumeration value="MT" />
+            <xs:enumeration value="MU" />
+            <xs:enumeration value="MV" />
+            <xs:enumeration value="MW" />
+            <xs:enumeration value="MX" />
+            <xs:enumeration value="MY" />
+            <xs:enumeration value="MZ" />
+            <xs:enumeration value="NA" />
+            <xs:enumeration value="NC" />
+            <xs:enumeration value="NE" />
+            <xs:enumeration value="NF" />
+            <xs:enumeration value="NG" />
+            <xs:enumeration value="NI" />
+            <xs:enumeration value="NL" />
+            <xs:enumeration value="NO" />
+            <xs:enumeration value="NP" />
+            <xs:enumeration value="NR" />
+            <xs:enumeration value="NU" />
+            <xs:enumeration value="NZ" />
+            <xs:enumeration value="OM" />
+            <xs:enumeration value="PA" />
+            <xs:enumeration value="PE" />
+            <xs:enumeration value="PF" />
+            <xs:enumeration value="PG" />
+            <xs:enumeration value="PH" />
+            <xs:enumeration value="PK" />
+            <xs:enumeration value="PL" />
+            <xs:enumeration value="PM" />
+            <xs:enumeration value="PN" />
+            <xs:enumeration value="PR" />
+            <xs:enumeration value="PS" />
+            <xs:enumeration value="PT" />
+            <xs:enumeration value="PW" />
+            <xs:enumeration value="PY" />
+            <xs:enumeration value="QA" />
+            <xs:enumeration value="RE" />
+            <xs:enumeration value="RO" />
+            <xs:enumeration value="RS" />
+            <xs:enumeration value="RU" />
+            <xs:enumeration value="RW" />
+            <xs:enumeration value="SA" />
+            <xs:enumeration value="SB" />
+            <xs:enumeration value="SC" />
+            <xs:enumeration value="SD" />
+            <xs:enumeration value="SE" />
+            <xs:enumeration value="SG" />
+            <xs:enumeration value="SH" />
+            <xs:enumeration value="SI" />
+            <xs:enumeration value="SJ" />
+            <xs:enumeration value="SK" />
+            <xs:enumeration value="SL" />
+            <xs:enumeration value="SM" />
+            <xs:enumeration value="SN" />
+            <xs:enumeration value="SO" />
+            <xs:enumeration value="SR" />
+            <xs:enumeration value="SS" />
+            <xs:enumeration value="ST" />
+            <xs:enumeration value="SV" />
+            <xs:enumeration value="SX" />
+            <xs:enumeration value="SY" />
+            <xs:enumeration value="SZ" />
+            <xs:enumeration value="TC" />
+            <xs:enumeration value="TD" />
+            <xs:enumeration value="TF" />
+            <xs:enumeration value="TG" />
+            <xs:enumeration value="TH" />
+            <xs:enumeration value="TJ" />
+            <xs:enumeration value="TK" />
+            <xs:enumeration value="TL" />
+            <xs:enumeration value="TM" />
+            <xs:enumeration value="TN" />
+            <xs:enumeration value="TO" />
+            <xs:enumeration value="TR" />
+            <xs:enumeration value="TT" />
+            <xs:enumeration value="TV" />
+            <xs:enumeration value="TW" />
+            <xs:enumeration value="TZ" />
+            <xs:enumeration value="UA" />
+            <xs:enumeration value="UG" />
+            <xs:enumeration value="UM" />
+            <xs:enumeration value="US" />
+            <xs:enumeration value="UY" />
+            <xs:enumeration value="UZ" />
+            <xs:enumeration value="VA" />
+            <xs:enumeration value="VC" />
+            <xs:enumeration value="VE" />
+            <xs:enumeration value="VG" />
+            <xs:enumeration value="VI" />
+            <xs:enumeration value="VN" />
+            <xs:enumeration value="VU" />
+            <xs:enumeration value="WF" />
+            <xs:enumeration value="WS" />
+            <xs:enumeration value="YE" />
+            <xs:enumeration value="YT" />
+            <xs:enumeration value="ZA" />
+            <xs:enumeration value="ZM" />
+            <xs:enumeration value="ZW" />
+            <xs:enumeration value="UNDEFINED" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CountryISOAlphaCode3">
+        <xs:annotation>
+            <xs:documentation>Country ISO Alpha Code 3</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AFG" />
+            <xs:enumeration value="ALA" />
+            <xs:enumeration value="ALB" />
+            <xs:enumeration value="DZA" />
+            <xs:enumeration value="ASM" />
+            <xs:enumeration value="AND" />
+            <xs:enumeration value="AGO" />
+            <xs:enumeration value="AIA" />
+            <xs:enumeration value="ATA" />
+            <xs:enumeration value="ATG" />
+            <xs:enumeration value="ARG" />
+            <xs:enumeration value="ARM" />
+            <xs:enumeration value="ABW" />
+            <xs:enumeration value="AUS" />
+            <xs:enumeration value="AUT" />
+            <xs:enumeration value="AZE" />
+            <xs:enumeration value="BHS" />
+            <xs:enumeration value="BHR" />
+            <xs:enumeration value="BGD" />
+            <xs:enumeration value="BRB" />
+            <xs:enumeration value="BLR" />
+            <xs:enumeration value="BEL" />
+            <xs:enumeration value="BLZ" />
+            <xs:enumeration value="BEN" />
+            <xs:enumeration value="BMU" />
+            <xs:enumeration value="BTN" />
+            <xs:enumeration value="BOL" />
+            <xs:enumeration value="BES" />
+            <xs:enumeration value="BIH" />
+            <xs:enumeration value="BWA" />
+            <xs:enumeration value="BVT" />
+            <xs:enumeration value="BRA" />
+            <xs:enumeration value="IOT" />
+            <xs:enumeration value="BRN" />
+            <xs:enumeration value="BGR" />
+            <xs:enumeration value="BFA" />
+            <xs:enumeration value="BDI" />
+            <xs:enumeration value="KHM" />
+            <xs:enumeration value="CMR" />
+            <xs:enumeration value="CAN" />
+            <xs:enumeration value="CPV" />
+            <xs:enumeration value="CYM" />
+            <xs:enumeration value="CAF" />
+            <xs:enumeration value="TCD" />
+            <xs:enumeration value="CHL" />
+            <xs:enumeration value="CHN" />
+            <xs:enumeration value="CXR" />
+            <xs:enumeration value="CCK" />
+            <xs:enumeration value="COL" />
+            <xs:enumeration value="COM" />
+            <xs:enumeration value="COG" />
+            <xs:enumeration value="COD" />
+            <xs:enumeration value="COK" />
+            <xs:enumeration value="CRI" />
+            <xs:enumeration value="CIV" />
+            <xs:enumeration value="HRV" />
+            <xs:enumeration value="CUB" />
+            <xs:enumeration value="CUW" />
+            <xs:enumeration value="CYP" />
+            <xs:enumeration value="CZE" />
+            <xs:enumeration value="DNK" />
+            <xs:enumeration value="DJI" />
+            <xs:enumeration value="DMA" />
+            <xs:enumeration value="DOM" />
+            <xs:enumeration value="ECU" />
+            <xs:enumeration value="EGY" />
+            <xs:enumeration value="SLV" />
+            <xs:enumeration value="GNQ" />
+            <xs:enumeration value="ERI" />
+            <xs:enumeration value="EST" />
+            <xs:enumeration value="ETH" />
+            <xs:enumeration value="FLK" />
+            <xs:enumeration value="FRO" />
+            <xs:enumeration value="FJI" />
+            <xs:enumeration value="FIN" />
+            <xs:enumeration value="FRA" />
+            <xs:enumeration value="GUF" />
+            <xs:enumeration value="PYF" />
+            <xs:enumeration value="ATF" />
+            <xs:enumeration value="GAB" />
+            <xs:enumeration value="GMB" />
+            <xs:enumeration value="GEO" />
+            <xs:enumeration value="DEU" />
+            <xs:enumeration value="GHA" />
+            <xs:enumeration value="GIB" />
+            <xs:enumeration value="GRC" />
+            <xs:enumeration value="GRL" />
+            <xs:enumeration value="GRD" />
+            <xs:enumeration value="GLP" />
+            <xs:enumeration value="GUM" />
+            <xs:enumeration value="GTM" />
+            <xs:enumeration value="GGY" />
+            <xs:enumeration value="GIN" />
+            <xs:enumeration value="GNB" />
+            <xs:enumeration value="GUY" />
+            <xs:enumeration value="HTI" />
+            <xs:enumeration value="HMD" />
+            <xs:enumeration value="VAT" />
+            <xs:enumeration value="HND" />
+            <xs:enumeration value="HKG" />
+            <xs:enumeration value="HUN" />
+            <xs:enumeration value="ISL" />
+            <xs:enumeration value="IND" />
+            <xs:enumeration value="IDN" />
+            <xs:enumeration value="IRN" />
+            <xs:enumeration value="IRQ" />
+            <xs:enumeration value="IRL" />
+            <xs:enumeration value="IMN" />
+            <xs:enumeration value="ISR" />
+            <xs:enumeration value="ITA" />
+            <xs:enumeration value="JAM" />
+            <xs:enumeration value="JPN" />
+            <xs:enumeration value="JEY" />
+            <xs:enumeration value="JOR" />
+            <xs:enumeration value="KAZ" />
+            <xs:enumeration value="KEN" />
+            <xs:enumeration value="KIR" />
+            <xs:enumeration value="PRK" />
+            <xs:enumeration value="KOR" />
+            <xs:enumeration value="KWT" />
+            <xs:enumeration value="KGZ" />
+            <xs:enumeration value="LAO" />
+            <xs:enumeration value="LVA" />
+            <xs:enumeration value="LBN" />
+            <xs:enumeration value="LSO" />
+            <xs:enumeration value="LBR" />
+            <xs:enumeration value="LBY" />
+            <xs:enumeration value="LIE" />
+            <xs:enumeration value="LTU" />
+            <xs:enumeration value="LUX" />
+            <xs:enumeration value="MAC" />
+            <xs:enumeration value="MKD" />
+            <xs:enumeration value="MDG" />
+            <xs:enumeration value="MWI" />
+            <xs:enumeration value="MYS" />
+            <xs:enumeration value="MDV" />
+            <xs:enumeration value="MLI" />
+            <xs:enumeration value="MLT" />
+            <xs:enumeration value="MHL" />
+            <xs:enumeration value="MTQ" />
+            <xs:enumeration value="MRT" />
+            <xs:enumeration value="MUS" />
+            <xs:enumeration value="MYT" />
+            <xs:enumeration value="MEX" />
+            <xs:enumeration value="FSM" />
+            <xs:enumeration value="MDA" />
+            <xs:enumeration value="MCO" />
+            <xs:enumeration value="MNG" />
+            <xs:enumeration value="MNE" />
+            <xs:enumeration value="MSR" />
+            <xs:enumeration value="MAR" />
+            <xs:enumeration value="MOZ" />
+            <xs:enumeration value="MMR" />
+            <xs:enumeration value="NAM" />
+            <xs:enumeration value="NRU" />
+            <xs:enumeration value="NPL" />
+            <xs:enumeration value="NLD" />
+            <xs:enumeration value="NCL" />
+            <xs:enumeration value="NZL" />
+            <xs:enumeration value="NIC" />
+            <xs:enumeration value="NER" />
+            <xs:enumeration value="NGA" />
+            <xs:enumeration value="NIU" />
+            <xs:enumeration value="NFK" />
+            <xs:enumeration value="MNP" />
+            <xs:enumeration value="NOR" />
+            <xs:enumeration value="OMN" />
+            <xs:enumeration value="PAK" />
+            <xs:enumeration value="PLW" />
+            <xs:enumeration value="PSE" />
+            <xs:enumeration value="PAN" />
+            <xs:enumeration value="PNG" />
+            <xs:enumeration value="PRY" />
+            <xs:enumeration value="PER" />
+            <xs:enumeration value="PHL" />
+            <xs:enumeration value="PCN" />
+            <xs:enumeration value="POL" />
+            <xs:enumeration value="PRT" />
+            <xs:enumeration value="PRI" />
+            <xs:enumeration value="QAT" />
+            <xs:enumeration value="REU" />
+            <xs:enumeration value="ROU" />
+            <xs:enumeration value="RUS" />
+            <xs:enumeration value="RWA" />
+            <xs:enumeration value="BLM" />
+            <xs:enumeration value="SHN" />
+            <xs:enumeration value="KNA" />
+            <xs:enumeration value="LCA" />
+            <xs:enumeration value="MAF" />
+            <xs:enumeration value="SPM" />
+            <xs:enumeration value="VCT" />
+            <xs:enumeration value="WSM" />
+            <xs:enumeration value="SMR" />
+            <xs:enumeration value="STP" />
+            <xs:enumeration value="SAU" />
+            <xs:enumeration value="SEN" />
+            <xs:enumeration value="SRB" />
+            <xs:enumeration value="SYC" />
+            <xs:enumeration value="SLE" />
+            <xs:enumeration value="SGP" />
+            <xs:enumeration value="SXM" />
+            <xs:enumeration value="SVK" />
+            <xs:enumeration value="SVN" />
+            <xs:enumeration value="SLB" />
+            <xs:enumeration value="SOM" />
+            <xs:enumeration value="ZAF" />
+            <xs:enumeration value="SGS" />
+            <xs:enumeration value="SSD" />
+            <xs:enumeration value="ESP" />
+            <xs:enumeration value="LKA" />
+            <xs:enumeration value="SDN" />
+            <xs:enumeration value="SUR" />
+            <xs:enumeration value="SJM" />
+            <xs:enumeration value="SWZ" />
+            <xs:enumeration value="SWE" />
+            <xs:enumeration value="CHE" />
+            <xs:enumeration value="SYR" />
+            <xs:enumeration value="TWN" />
+            <xs:enumeration value="TJK" />
+            <xs:enumeration value="TZA" />
+            <xs:enumeration value="THA" />
+            <xs:enumeration value="TLS" />
+            <xs:enumeration value="TGO" />
+            <xs:enumeration value="TKL" />
+            <xs:enumeration value="TON" />
+            <xs:enumeration value="TTO" />
+            <xs:enumeration value="TUN" />
+            <xs:enumeration value="TUR" />
+            <xs:enumeration value="TKM" />
+            <xs:enumeration value="TCA" />
+            <xs:enumeration value="TUV" />
+            <xs:enumeration value="UGA" />
+            <xs:enumeration value="UKR" />
+            <xs:enumeration value="ARE" />
+            <xs:enumeration value="GBR" />
+            <xs:enumeration value="USA" />
+            <xs:enumeration value="UMI" />
+            <xs:enumeration value="URY" />
+            <xs:enumeration value="UZB" />
+            <xs:enumeration value="VUT" />
+            <xs:enumeration value="VEN" />
+            <xs:enumeration value="VNM" />
+            <xs:enumeration value="VGB" />
+            <xs:enumeration value="VIR" />
+            <xs:enumeration value="WLF" />
+            <xs:enumeration value="ESH" />
+            <xs:enumeration value="YEM" />
+            <xs:enumeration value="ZMB" />
+            <xs:enumeration value="ZWE" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns="http://www.w3.org/2000/09/xmldsig#" xmlns:b="http://schemas.microsoft.com/BizTalk/2003" targetNamespace="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="Signature">
+<xs:complexType>
+<xs:sequence>
+<xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>

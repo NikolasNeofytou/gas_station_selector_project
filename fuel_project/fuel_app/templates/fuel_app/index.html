@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %} <!-- Load static tag library for Django -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Price Finder</title>
+    <!-- Link to CSS if any -->
+    <link rel="stylesheet" href="{% static 'fuel_app/style.css' %}">
+    <!-- Include the JavaScript file -->
+    <script src="{% static 'fuel_app/scripts.js' %}" defer></script>
+</head>
+<body>
+    <h1>Fuel Price Finder</h1>
+
+    <!-- City selection dropdown -->
+    <label for="city">Select City:</label>
+    <select id="city">
+        <option value="">--Select a City--</option>
+        <!-- Cities will be populated dynamically by scripts.js -->
+    </select>
+
+    <!-- Fuel type selection dropdown -->
+    <label for="fuel_type">Select Fuel Type:</label>
+    <select id="fuel_type">
+        <option value="">--Select Fuel Type--</option>
+        <option value="1">Type 1</option>
+        <option value="2">Type 2</option>
+        <option value="3">Type 3</option>
+        <!-- Add more fuel types if needed -->
+    </select>
+
+    <!-- Search button -->
+    <button id="search-button">Search</button>
+
+    <!-- Results container to display fuel prices and locations -->
+    <div id="results"></div>
+</body>
+</html>

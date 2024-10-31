@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--Created with Liquid XML Studio Developer Edition 9.0.11.3078 (http://www.liquid-technologies.com)-->
+<xs:schema xmlns:com="http://gateway.gov/schema/common/v1" xmlns="http://gateway.gov/schema/mcit/v1" elementFormDefault="qualified" targetNamespace="http://gateway.gov/schema/mcit/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:import schemaLocation="Common.xsd" namespace="http://gateway.gov/schema/common/v1" />
+    <xs:element name="PublishPetroleumPriceRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="com:Request">
+                    <xs:sequence>
+                        <xs:element name="CompanyCode">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:pattern value="[A-Z]{2}" />
+                                    <xs:enumeration value="AG" />
+                                    <xs:enumeration value="PE" />
+                                    <xs:enumeration value="EK" />
+                                    <xs:enumeration value="LU" />
+                                    <xs:enumeration value="ES" />
+                                    <xs:enumeration value="ST" />
+                                    <xs:enumeration value="TO" />
+                                    <xs:enumeration value="IS" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="StationDetail" type="StationDetails" minOccurs="1" maxOccurs="1" />
+                        <xs:element name="PetroleumPrice" type="PetroleumPrices" minOccurs="1" maxOccurs="1" />
+                        <xs:element name="trans_date" type="xs:dateTime" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PublishPetroleumpriceResponse">
+        <xs:annotation>
+            <xs:documentation>MCIT - Publish Petroleum Price Response</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="com:Response" />
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ConnectivityVerificationRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="com:Request">
+                    <xs:sequence>
+                        <xs:element name="CompanyCode" minOccurs="1" maxOccurs="1">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:pattern value="[A-Z]{2}" />
+                                    <xs:enumeration value="AG" />
+                                    <xs:enumeration value="PE" />
+                                    <xs:enumeration value="EK" />
+                                    <xs:enumeration value="LU" />
+                                    <xs:enumeration value="ES" />
+                                    <xs:enumeration value="ST" />
+                                    <xs:enumeration value="TO" />
+                                    <xs:enumeration value="IS" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="StationDetail" type="StationDetails" minOccurs="1" maxOccurs="1" />
+                        <xs:element name="isOnline" type="xs:boolean" minOccurs="1" maxOccurs="1" />
+                        <xs:element name="trans_date" type="xs:dateTime" minOccurs="1" maxOccurs="1" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ConnectivityVerificationResponse">
+        <xs:annotation>
+            <xs:documentation>MCIT - Publish Petroleum Price Response</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="com:Response" />
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+     <xs:element name="PetroleumPriceRequestMob">
+        <xs:annotation>
+            <xs:documentation>MCITS - Petroleum Price Request for Mobile Apps</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="com:Request">
+                    <xs:sequence>
+                        <xs:element name="PetroleumType" minOccurs="1" maxOccurs="1">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:int">
+                                    <xs:enumeration value="1" />
+                                    <xs:enumeration value="2" />
+                                    <xs:enumeration value="3" />
+                                    <xs:enumeration value="4" />
+                                    <xs:enumeration value="5" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="StationCity" type="xs:string" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="StationDistrict" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PetroleumPriceResponseMob">
+        <xs:annotation>
+            <xs:documentation>MCITS - Petroleum Price Response for Mobile Apps</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="com:Response">
+                    <xs:sequence>
+                        <xs:element name="PetroleumType" type="xs:string" minOccurs="1" maxOccurs="1" />
+                        <xs:element name="PetroleumPriceDetailsCollectionMob" type="PetroleumPriceDetailsCollectionMob" minOccurs="0" maxOccurs="1" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PetroleumPriceRequest">
+        <xs:annotation>
+            <xs:documentation>MCITS - Petroleum Price Request</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="com:Request">
+                    <xs:sequence>
+                        <xs:element name="PetroleumType" minOccurs="1" maxOccurs="1">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:int">
+                                    <xs:enumeration value="1" />
+                                    <xs:enumeration value="2" />
+                                    <xs:enumeration value="3" />
+                                    <xs:enumeration value="4" />
+                                    <xs:enumeration value="5" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="StationCity" type="xs:string" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="StationDistrict" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PetroleumPriceResponse">
+        <xs:annotation>
+            <xs:documentation>MCITS - Petroleum Price Response</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="com:Response">
+                    <xs:sequence>
+                        <xs:element name="PetroleumType" type="xs:string" minOccurs="1" maxOccurs="1" />
+                        <xs:element name="MinValuePrice" minOccurs="1" maxOccurs="1">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:decimal">
+                                    <xs:fractionDigits value="3" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="MaxValuePrice" minOccurs="1" maxOccurs="1">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:decimal">
+                                    <xs:fractionDigits value="3" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="AvgValuePrice" minOccurs="1" maxOccurs="1">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:decimal">
+                                    <xs:fractionDigits value="3" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="PetroleumPriceDetailsCollection" type="PetroleumPriceDetailsCollection" minOccurs="0" maxOccurs="1" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="StationDetails">
+        <xs:sequence>
+            <xs:element name="StationCode">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="^AG[0-9]{3}|PE[0-9]{3}|EK[0-9]{3}|LU[0-9]{3}|ES[0-9]{3}|ST[0-9]{3}|TO[0-9]{3}|IS[0-9]{3}$" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="StationName" type="xs:string" />
+            <xs:element name="StationVatNum">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[0-9]{8}[A-Z]" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="StationTelNum" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PetroleumPrices">
+        <xs:sequence>
+            <xs:element name="unl95">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:fractionDigits value="3" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="unl98">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:fractionDigits value="3" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="diezel">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:fractionDigits value="3" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="heating">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:fractionDigits value="3" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="kerosene">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:fractionDigits value="3" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PetroleumPriceDetails">
+        <xs:sequence>
+            <xs:element name="FuelCompanyCode" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="fuel_company_name" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="Address1" type="xs:string" minOccurs="0" maxOccurs="1" />
+            <xs:element name="station_name" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="station_tel_no" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="station_city" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="station_district" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="trans_date" type="xs:dateTime" minOccurs="1" maxOccurs="1" />
+            <xs:element name="Fuel_Price" minOccurs="1" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:fractionDigits value="3" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="map_coordinates" type="xs:string" minOccurs="0" maxOccurs="1" />
+            <xs:element name="isOffLine" type="xs:boolean" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+     <xs:complexType name="PetroleumPriceDetailsMob">
+        <xs:sequence>
+            <xs:element name="FuelCompanyCode" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="fuel_company_name" type="xs:string" minOccurs="1" maxOccurs="1" />
+              <xs:element name="station_code" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="station_name" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="station_tel_no" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="station_city" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="station_district" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="station_address1" type="xs:string" minOccurs="0" maxOccurs="1" />
+            <xs:element name="price_modification_date" type="xs:dateTime" minOccurs="1" maxOccurs="1" />
+            <xs:element name="Fuel_Price" minOccurs="1" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:fractionDigits value="3" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="map_coordinates" type="xs:string" minOccurs="0" maxOccurs="1" />
+            <xs:element name="isOffLine" type="xs:boolean" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PetroleumPriceDetailsCollection">
+        <xs:sequence>
+            <xs:element name="PetroleumPriceDetails1" type="PetroleumPriceDetails" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PetroleumPriceDetailsCollectionMob">
+        <xs:sequence>
+            <xs:element name="PetroleumPriceDetails1" type="PetroleumPriceDetailsMob" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

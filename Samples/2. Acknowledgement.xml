@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GovTalkMessage xmlns="http://www.govtalk.gov.uk/CM/envelope">
+    <EnvelopeVersion>2.0</EnvelopeVersion>
+    <Header>
+        <MessageDetails>
+            <Class>PBL_MCIT_Petrol_PricesMob</Class>
+            <Qualifier>acknowledgement</Qualifier>
+            <Function>submit</Function>
+            <TransactionID />
+            <CorrelationID>C542BB94AE624BCD844DCD18AD268DA7</CorrelationID>
+            <ResponseEndPoint PollInterval="20">https://aztest.cyprus.gov.cy/gg/poll</ResponseEndPoint>
+            <GatewayTimestamp>2022-03-24T10:08:56.519</GatewayTimestamp>
+        </MessageDetails>
+        <SenderDetails />
+    </Header>
+    <GovTalkDetails>
+        <Keys />
+    </GovTalkDetails>
+    <Body>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="Acknowledgement">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" />
+                <Reference URI="#gg.properties" Type="http://www.w3.org/2000/02/xmldsig#SignatureProperty">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+                    <DigestValue>0SQZf5Y3l4wYjLYg7CKvc7AlnROd5WuJ3eRYgByVRN4=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>CjQ3njnrHLytbfGqZVF3DEs49FP5LLVqOfYXCEsQNfs7I7w1qDXoZba64EyFGzng4UY5mJkURM92ocXaPuT9Ywcz6Z4AdKJfxntGYTGHAy9sCMkN3zZSMYvO23YZ4Sy1VbDULlBCYQ87NmGiOa1azo8jQMG6mbtYjcS9JmX+e3J/GyngruDbPmN/n92bgYR5sjrO9ERL9hZEUG3O2AbfEVSZT/qVOJ45bgf8+U7+bFOEHIAAIH0bLdr0NusPCts+KGONtIq071XIANWrT48TZPJt7wOpN4xPsocOn/AzV5HaAGZcZglqc5vcyl7GaCf5E+pKwa6C4Ljm3MyEySqqeg==</SignatureValue>
+            <Object>
+                <SignatureProperties Id="gg.properties">
+                    <SignatureProperty Target="#Acknowledgement">
+                        <TimeStamp xmlns="urn:gg:ts.v2">2022-03-24 10:08:56</TimeStamp>
+                    </SignatureProperty>
+                    <SignatureProperty Target="#Acknowledgement">
+                        <CorrelationID xmlns="urn:gg:ts.v2">C542BB94AE624BCD844DCD18AD268DA7</CorrelationID>
+                    </SignatureProperty>
+                </SignatureProperties>
+            </Object>
+            <Object>
+                <SignatureProperties Id="gg.x509">
+                    <SignatureProperty Target="#Acknowledgement">
+                        <SignerCertificate xmlns="urn:gg:ts.v2">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</SignerCertificate>
+                    </SignatureProperty>
+                </SignatureProperties>
+            </Object>
+        </Signature>
+    </Body>
+</GovTalkMessage>
